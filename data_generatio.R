@@ -16,7 +16,7 @@ x <- x %>%
   select(-c(DateOfDeparture, WeeksToDeparture, std_wtd)) %>% 
   mutate(
     month = lubridate::month(date),
-    weekday = lubridate::wday(date),
+    weekday = as.numeric(lubridate::wday(date)) - 1,
     year = year(date),
     week = lubridate::week(date)
   )
@@ -30,6 +30,8 @@ weekday_x <- x %>%
   group_by(Departure, weekday) %>%
   summarise(weekday_avg_logPAX = mean(log_PAX)) %>% 
   select(Departure, weekday, weekday_avg_logPAX)
+
+weekday_x %>% group_by(Departure) %>% summarise(nb = n()) %>% arrange(nb) 
 
 write.csv(monthly_x, "aggregated_monthly_PAX.csv", quote = F)
 write.csv(weekday_x, "aggregated_weekday_PAX.csv", quote = F)
