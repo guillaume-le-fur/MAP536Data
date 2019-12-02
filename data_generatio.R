@@ -23,13 +23,13 @@ x <- x %>%
 
 monthly_x <- x %>% 
   group_by(Departure, month) %>%
-  summarise(avg = mean(log_PAX)) %>% 
-  select(Departure, month, avg)
+  summarise(monthly_avg_logPAX = mean(log_PAX)) %>% 
+  select(Departure, month, monthly_avg_logPAX)
 
 weekday_x <- x %>% 
   group_by(Departure, weekday) %>%
-  summarise(avg = mean(log_PAX)) %>% 
-  select(Departure, weekday, avg)
+  summarise(weekday_avg_logPAX = mean(log_PAX)) %>% 
+  select(Departure, weekday, weekday_avg_logPAX)
 
 write.csv(monthly_x, "aggregated_monthly_PAX.csv", quote = F)
 write.csv(weekday_x, "aggregated_weekday_PAX.csv", quote = F)
