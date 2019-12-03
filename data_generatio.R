@@ -21,17 +21,30 @@ x <- x %>%
     week = lubridate::week(date)
   )
 
-monthly_x <- x %>% 
+monthly_x_dep <- x %>% 
   group_by(Departure, month) %>%
   summarise(monthly_avg_logPAX = mean(log_PAX)) %>% 
   select(Departure, month, monthly_avg_logPAX)
 
-weekday_x <- x %>% 
+weekday_x_dep <- x %>% 
   group_by(Departure, weekday) %>%
   summarise(weekday_avg_logPAX = mean(log_PAX)) %>% 
   select(Departure, weekday, weekday_avg_logPAX)
 
-weekday_x %>% group_by(Departure) %>% summarise(nb = n()) %>% arrange(nb) 
+monthly_x_arr <- x %>% 
+  group_by(Arrival, month) %>%
+  summarise(monthly_avg_logPAX = mean(log_PAX)) %>% 
+  select(Arrival, month, monthly_avg_logPAX)
 
-write.csv(monthly_x, "aggregated_monthly_PAX.csv", quote = F)
-write.csv(weekday_x, "aggregated_weekday_PAX.csv", quote = F)
+weekday_x_arr <- x %>% 
+  group_by(Arrival, weekday) %>%
+  summarise(weekday_avg_logPAX = mean(log_PAX)) %>% 
+  select(Arrival, weekday, weekday_avg_logPAX)
+
+
+weekday_x_dep %>% group_by(Departure) %>% summarise(nb = n()) %>% arrange(nb) 
+
+write.csv(monthly_x_dep, "aggregated_monthly_PAX_dep.csv", quote = F)
+write.csv(weekday_x_dep, "aggregated_weekday_PAX_dep.csv", quote = F)
+write.csv(monthly_x_arr, "aggregated_monthly_PAX_arr.csv", quote = F)
+write.csv(weekday_x_arr, "aggregated_weekday_PAX_arr.csv", quote = F)
