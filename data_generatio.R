@@ -23,23 +23,23 @@ x <- x %>%
 
 monthly_x_dep <- x %>% 
   group_by(Departure, month) %>%
-  summarise(monthly_avg_logPAX = mean(log_PAX)) %>% 
-  select(Departure, month, monthly_avg_logPAX)
+  summarise(monthly_avg_logPAX_dep = mean(log_PAX)) %>% 
+  select(Departure, month, monthly_avg_logPAX_dep)
 
 weekday_x_dep <- x %>% 
   group_by(Departure, weekday) %>%
-  summarise(weekday_avg_logPAX = mean(log_PAX)) %>% 
-  select(Departure, weekday, weekday_avg_logPAX)
+  summarise(weekday_avg_logPAX_dep = mean(log_PAX)) %>% 
+  select(Departure, weekday, weekday_avg_logPAX_dep)
 
 monthly_x_arr <- x %>% 
   group_by(Arrival, month) %>%
-  summarise(monthly_avg_logPAX = mean(log_PAX)) %>% 
-  select(Arrival, month, monthly_avg_logPAX)
+  summarise(monthly_avg_logPAX_arr = mean(log_PAX)) %>% 
+  select(Arrival, month, monthly_avg_logPAX_arr)
 
 weekday_x_arr <- x %>% 
   group_by(Arrival, weekday) %>%
-  summarise(weekday_avg_logPAX = mean(log_PAX)) %>% 
-  select(Arrival, weekday, weekday_avg_logPAX)
+  summarise(weekday_avg_logPAX_arr = mean(log_PAX)) %>% 
+  select(Arrival, weekday, weekday_avg_logPAX_arr)
 
 
 weekday_x_dep %>% group_by(Departure) %>% summarise(nb = n()) %>% arrange(nb) 
